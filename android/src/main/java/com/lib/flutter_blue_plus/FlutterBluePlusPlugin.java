@@ -1091,6 +1091,7 @@ public class FlutterBluePlusPlugin implements
                     String characteristicUuid =   (String) data.get("characteristic_uuid");
                     boolean forceIndications =   (boolean) data.get("force_indications");
                     boolean enable =             (boolean) data.get("enable");
+                    boolean cccdWrite =          (boolean) data.get("cccd");
 
                     // check connection
                     BluetoothGatt gatt = mConnectedDevices.get(remoteId);
@@ -1116,6 +1117,11 @@ public class FlutterBluePlusPlugin implements
                         result.error("setNotifyValue",
                             "gatt.setCharacteristicNotification(" + enable + ") returned false", null);
                         break;
+                    }
+
+                    if(!cccdWrite) {
+                        result.success(false);
+                        return;
                     }
 
                     // find cccd descriptor

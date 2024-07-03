@@ -616,6 +616,7 @@ class BmSetNotifyValueRequest {
   final Guid characteristicUuid;
   final bool forceIndications;
   final bool enable;
+  final bool cccd;
 
   BmSetNotifyValueRequest({
     required this.remoteId,
@@ -624,6 +625,7 @@ class BmSetNotifyValueRequest {
     required this.characteristicUuid,
     required this.forceIndications,
     required this.enable,
+    required this.cccd,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -634,6 +636,7 @@ class BmSetNotifyValueRequest {
     data['characteristic_uuid'] = characteristicUuid.str;
     data['force_indications'] = forceIndications;
     data['enable'] = enable;
+    data['cccd'] = cccd;
     return data;
   }
 }

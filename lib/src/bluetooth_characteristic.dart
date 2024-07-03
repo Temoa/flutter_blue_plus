@@ -150,7 +150,7 @@ class BluetoothCharacteristic {
   }
 
   /// Writes a characteristic.
-  ///  - [withoutResponse]: 
+  ///  - [withoutResponse]:
   ///       If `true`, the write is not guaranteed and always returns immediately with success.
   ///       If `false`, the write returns error on failure.
   ///  - [allowLongWrite]: if set, larger writes > MTU are allowed (up to 512 bytes).
@@ -226,7 +226,9 @@ class BluetoothCharacteristic {
   ///   - If a characteristic supports both notifications and indications,
   ///     we use notifications. This is a limitation of CoreBluetooth on iOS.
   ///   - [forceIndications] Android Only. force indications to be used instead of notifications.
-  Future<bool> setNotifyValue(bool notify, {int timeout = 15, bool forceIndications = false}) async {
+  ///   - [cccd]
+  Future<bool> setNotifyValue(bool notify,
+      {int timeout = 15, bool forceIndications = false, bool cccd = true}) async {
     // check connected
     if (device.isDisconnected) {
       throw FlutterBluePlusException(
@@ -250,6 +252,7 @@ class BluetoothCharacteristic {
         characteristicUuid: characteristicUuid,
         forceIndications: forceIndications,
         enable: notify,
+        cccd: cccd,
       );
 
       // Notifications & Indications are configured by writing to the
